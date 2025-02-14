@@ -1,16 +1,14 @@
 provider "aws" {
   region = "us-east-1"
 }
-
-resource "aws_s3_bucket" "my_bucket" {
-  bucket = "robbucket11"
-
-  tags = {
-    Name        = "robbucket11"
-    Environment = "Dev"
-  }
+module "ec2_instance" {
+  source = "./modules/ec2"
 }
 
-output "bucket_name" {
-  value = aws_s3_bucket.my_bucket.bucket
+module "s3_bucket" {
+  source = "./modules/s3"
+}
+
+module "rds" {
+  source = "./modules/rds"
 }
